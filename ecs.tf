@@ -9,7 +9,7 @@ resource "aws_ecs_cluster_capacity_providers" "aws_ecs_cluster_capacity_provider
 }
 
 resource "aws_ecs_capacity_provider" "ec2" {
-  name = format("%s_ec2-capacity-provider", aws_ecs_cluster.ec2_cluster)
+  name = format("%s_ec2-capacity-provider", aws_ecs_cluster.ec2_cluster.name)
 
   auto_scaling_group_provider {
     auto_scaling_group_arn = aws_autoscaling_group.ecs_ec2_asg.arn
