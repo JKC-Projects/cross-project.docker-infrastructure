@@ -40,5 +40,7 @@ resource "aws_launch_template" "for_ecs_ec2_asg" {
   description = format("The launch template for creating the EC2 instances used to form the ECS cluster %s",
   aws_ecs_cluster.ec2_cluster.name)
 
+  vpc_security_group_ids = [aws_security_group.for_ec2_composing_ecs_cluster.id]
+
   tags = local.common_tags
 }
