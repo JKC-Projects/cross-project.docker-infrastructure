@@ -45,7 +45,9 @@ resource "aws_launch_template" "for_ecs_ec2_asg" {
   description = format("The launch template for creating the EC2 instances used to form the ECS cluster %s",
   aws_ecs_cluster.ec2_cluster.name)
 
-  iam_instance_profile = "ecsInstanceRole"
+  iam_instance_profile {
+    name = "ecsInstanceRole"
+  }
 
   network_interfaces {
     associate_public_ip_address = true
