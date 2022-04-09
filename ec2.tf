@@ -5,7 +5,7 @@ resource "aws_autoscaling_group" "ecs_ec2_asg" {
   vpc_zone_identifier = split(",", data.aws_ssm_parameter.public_subnet_ids.value)
   launch_template {
     id      = aws_launch_template.for_ecs_ec2_asg.id
-    version = "$Latest"
+    version = aws_launch_template.for_ecs_ec2_asg.latest_version
   }
 
   # The ASG used for our ECS-on-EC2 Cluster needs to have
