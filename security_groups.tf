@@ -16,6 +16,7 @@ resource "aws_security_group" "for_ec2_composing_ecs_cluster" {
     from_port   = 51678
     to_port     = 51680
     protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   tags = local.common_tags
