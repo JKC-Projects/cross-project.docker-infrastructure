@@ -45,6 +45,7 @@ resource "aws_launch_template" "for_ecs_ec2_asg" {
   network_interfaces {
     associate_public_ip_address = true
     delete_on_termination       = true
+    security_groups             = [aws_security_group.for_ec2_composing_ecs_cluster.id]
     description = format("An ENI for an EC2 instance composing the ECS Cluster %s",
     aws_ecs_cluster.ec2_cluster.name)
   }
