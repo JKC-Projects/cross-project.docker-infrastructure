@@ -4,6 +4,6 @@ variable "instance_type_for_ec2_in_ecs_cluster" {
 }
 
 variable "ami_id_for_ec2_in_ecs_cluster" {
-  default = "ami-02e875830ca47abb5" # Amazon Linux 2 (Kernel 5.10) (arm64)
+  default = "ami-0bb7c2ee184bc8249" # /aws/service/ecs/optimized-ami/amazon-linux-2/recommended/image_id
   type    = string
 }

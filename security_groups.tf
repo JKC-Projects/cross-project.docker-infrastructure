@@ -9,11 +9,14 @@ resource "aws_security_group" "for_ec2_composing_ecs_cluster" {
     to_port         = 80
     protocol        = "tcp"
     security_groups = [data.aws_ssm_parameter.common_load_balancer_sg.value]
-
   }
 
-  # not specifying any egress rules since terraform will apply a DENY on all egress actions by default
-  # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group
+  egress {
+    description = "Open ports for communication by the ECS Container Agents~"
+    from_port   = 51678
+    to_port     = 51680
+    protocol    = "tcp"
+  }
 
   tags = local.common_tags
 }

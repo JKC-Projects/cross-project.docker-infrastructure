@@ -3,9 +3,14 @@ resource "aws_autoscaling_group" "ecs_ec2_asg" {
   min_size            = 1
   max_size            = 1
   vpc_zone_identifier = split(",", data.aws_ssm_parameter.public_subnet_ids.value)
+
   launch_template {
     id      = aws_launch_template.for_ecs_ec2_asg.id
     version = aws_launch_template.for_ecs_ec2_asg.latest_version
+  }
+
+  instance_refresh {
+    strategy = "Rolling"
   }
 
   # The ASG used for our ECS-on-EC2 Cluster needs to have
@@ -40,7 +45,7 @@ resource "aws_launch_template" "for_ecs_ec2_asg" {
   description = format("The launch template for creating the EC2 instances used to form the ECS cluster %s",
   aws_ecs_cluster.ec2_cluster.name)
 
-  vpc_security_group_ids = [aws_security_group.for_ec2_composing_ecs_cluster.id]
+  iam_instance_profile = "ecsInstanceRole"
 
   network_interfaces {
     associate_public_ip_address = true
