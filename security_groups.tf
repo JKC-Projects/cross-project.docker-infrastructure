@@ -12,9 +12,9 @@ resource "aws_security_group" "for_ec2_composing_ecs_cluster" {
   }
 
   egress {
-    description = "Open ports for communication by the ECS Container Agents"
-    from_port   = 51678
-    to_port     = 51680
+    description = "Allow all egress traffic"
+    from_port   = 0
+    to_port     = 65535
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
