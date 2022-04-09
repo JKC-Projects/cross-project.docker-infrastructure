@@ -58,7 +58,7 @@ resource "aws_launch_template" "for_ecs_ec2_asg" {
   }
 
   # configure the ECS Container Agent to register itself against ECS cluster
-  user_data = base64encode("#!/bin/bash\n\recho ECS_CLUSTER=${aws_ecs_cluster.ec2_cluster.name} >> /etc/ecs/ecs.config")
+  user_data = base64encode("#!/bin/bash\necho ECS_CLUSTER=${aws_ecs_cluster.ec2_cluster.name} >> /etc/ecs/ecs.config")
 
   tags = local.common_tags
 }
