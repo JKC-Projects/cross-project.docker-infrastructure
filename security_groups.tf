@@ -18,6 +18,4 @@ resource "aws_security_group" "for_ec2_composing_ecs_cluster" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
-
-  tags = local.common_tags
 }

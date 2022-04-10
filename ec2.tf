@@ -29,7 +29,7 @@ resource "aws_autoscaling_group" "ecs_ec2_asg" {
   }
 
   dynamic "tag" {
-    for_each = local.common_tags
+    for_each = data.aws_default_tags.current.tags
     content {
       key                 = tag.key
       value               = tag.value
@@ -59,6 +59,4 @@ resource "aws_launch_template" "for_ecs_ec2_asg" {
 
   # configure the ECS Container Agent to register itself against ECS cluster
   user_data = base64encode("#!/bin/bash\necho ECS_CLUSTER=${aws_ecs_cluster.ec2_cluster.name} >> /etc/ecs/ecs.config")
-
-  tags = local.common_tags
 }

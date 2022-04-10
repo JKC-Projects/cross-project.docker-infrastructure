@@ -1,6 +1,5 @@
 resource "aws_ecs_cluster" "ec2_cluster" {
   name = "ec2-cluster"
-  tags = local.common_tags
 }
 
 resource "aws_ecs_cluster_capacity_providers" "aws_ecs_cluster_capacity_providers" {
@@ -14,6 +13,4 @@ resource "aws_ecs_capacity_provider" "ec2" {
   auto_scaling_group_provider {
     auto_scaling_group_arn = aws_autoscaling_group.ecs_ec2_asg.arn
   }
-
-  tags = local.common_tags
 }

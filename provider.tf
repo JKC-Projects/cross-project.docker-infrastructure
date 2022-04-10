@@ -20,4 +20,16 @@ terraform {
 
 provider "aws" {
   region = "eu-west-1"
+
+  default_tags {
+    tags = {
+      project    = "all_projects"
+      managed_by = "terraform"
+      repo       = "docker-infrastructure"
+    }
+  }
 }
+
+# Data block allows us to access the above default tags
+# https://learn.hashicorp.com/tutorials/terraform/aws-default-tags?in=terraform/aws
+data "aws_default_tags" "current" {}
