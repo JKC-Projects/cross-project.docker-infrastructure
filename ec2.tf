@@ -1,7 +1,7 @@
 resource "aws_autoscaling_group" "ecs_ec2_asg" {
   name                = "asg_for_ec2_ecs"
-  min_size            = 1
-  max_size            = 1
+  min_size            = var.ecs_cluster_size.min
+  max_size            = var.ecs_cluster_size.max
   vpc_zone_identifier = split(",", data.aws_ssm_parameter.public_subnet_ids.value)
 
   launch_template {
@@ -40,8 +40,8 @@ resource "aws_autoscaling_group" "ecs_ec2_asg" {
 
 resource "aws_launch_template" "for_ecs_ec2_asg" {
   name          = "ec2_ecs_cluster_launch_template"
-  instance_type = var.instance_type_for_ec2_in_ecs_cluster
-  image_id      = var.ami_id_for_ec2_in_ecs_cluster
+  instance_type = var.ec2_spec_for_ecs_cluster.instance_type
+  image_id      = var.ec2_spec_for_ecs_cluster.ami_id
   description = format("The launch template for creating the EC2 instances used to form the ECS cluster %s",
   aws_ecs_cluster.ec2_cluster.name)
 
