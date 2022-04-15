@@ -39,3 +39,8 @@ variable "ec2_spec_for_ecs_cluster" {
 
   description = "Specifies the EC2 instances used in the ECS cluster (instance type, AMI)"
 }
+
+variable "artifacts_lifecycle_policy" {
+  type        = string
+  description = "The ECR Lifecycle policy used for expiring images stored in the ECR Artifacts Repository"
+}

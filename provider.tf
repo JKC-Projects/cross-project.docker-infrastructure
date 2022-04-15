@@ -34,3 +34,6 @@ provider "aws" {
 # Data block allows us to access the above default tags
 # https://learn.hashicorp.com/tutorials/terraform/aws-default-tags?in=terraform/aws
 data "aws_default_tags" "current" {}
+
+# Get information about the AWS account using this terraform
+data "aws_caller_identity" "current" {}
