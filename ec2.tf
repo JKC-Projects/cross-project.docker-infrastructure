@@ -46,7 +46,7 @@ resource "aws_launch_template" "for_ecs_ec2_asg" {
   aws_ecs_cluster.ec2_cluster.name)
 
   iam_instance_profile {
-    name = "ecsInstanceRole"
+    arn = aws_iam_instance_profile.ecs_instance_role.arn
   }
 
   network_interfaces {

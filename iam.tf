@@ -1,5 +1,10 @@
-resource "aws_iam_role" "ecs_instance_role" {
+resource "aws_iam_instance_profile" "ecs_instance_role" {
   name = "ecsInstanceRole"
+  role = aws_iam_role.iam_role_for_ecs_instance_role.name
+}
+
+resource "aws_iam_role" "iam_role_for_ecs_instance_role" {
+  name        = "RoleForECSContainerAgents"
   description = "An IAM Role allowing ECS Container Agents to communicate with our ECS Service"
 
   managed_policy_arns = [
