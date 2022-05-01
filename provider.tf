@@ -11,9 +11,9 @@ terraform {
 
   # use Terraform Cloud as state backend
   cloud {
-    organization = "shared-infrastructure"
+    organization = "jkc-projects"
     workspaces {
-      name = "docker-infrastructure"
+      tags = ["docker-infrastructure"]
     }
   }
 }
