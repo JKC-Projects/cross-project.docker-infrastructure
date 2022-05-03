@@ -14,7 +14,7 @@ artifacts_lifecycle_policy = <<EOF
         "tagStatus" : "any",
         "countType" : "sinceImagePushed",
         "countUnit" : "days",
-        "countNumber" : 100
+        "countNumber" : 60
       },
       "action" : {
         "type" : "expire"
