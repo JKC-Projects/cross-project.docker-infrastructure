@@ -6,7 +6,7 @@ locals {
     }
   ]
 
-  # the key to this will be used to name the corresponding deployment-artifacts repo
+  # holds meta-info on each of the ECR deployment-artifact repos to be created
   ecr_artifacts_repos = [for a in local.applications :
     {
       ecr_repo_name = "${a.project}.${a.application}"
