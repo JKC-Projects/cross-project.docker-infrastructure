@@ -1,15 +1,16 @@
 locals {
   ecr_artifacts_repos = [
     {
-      project     = "smalldomains"
-      application = "domain-manager"
+      ecr_repo_name = "smalldomains.domain-manager"
+      project       = "smalldomains"
+      application   = "domain-manager"
     }
   ]
 }
 
 resource "aws_ecr_repository" "artifacts_ecr" {
-  for_each             = [for a in local.ecr_artifacts_repos : format("%s.%s", a.project, a.application)]
-  name                 = format("deployment-artifacts/%s", each.key)
+  for_each             = { for a in local.ecr_artifacts_repos : a.ecr_repo_name => a }
+  name                 = format("deployment-artifacts/%s", each.key.ecr_repo_name)
   image_tag_mutability = "IMMUTABLE"
 
   image_scanning_configuration {
