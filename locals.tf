@@ -1,9 +1,10 @@
 locals {
-  ecr_artifacts_repos = [
+  applications = [
     {
-      ecr_repo_name = "smalldomains.domain-manager"
-      project       = "smalldomains"
-      application   = "domain-manager"
+      project     = "smalldomains"
+      application = "domain-manager"
     }
   ]
+
+  ecr_artifacts_repos = [for a in local.application : "${a.project}.${a.application}"]
 }
