@@ -10,7 +10,7 @@ locals {
 
 resource "aws_ecr_repository" "artifacts_ecr" {
   for_each             = { for a in local.ecr_artifacts_repos : a.ecr_repo_name => a }
-  name                 = format("deployment-artifacts/%s", each.key.ecr_repo_name)
+  name                 = format("deployment-artifacts/%s", each.key)
   image_tag_mutability = "IMMUTABLE"
 
   image_scanning_configuration {
