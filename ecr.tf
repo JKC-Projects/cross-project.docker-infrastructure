@@ -1,13 +1,3 @@
-locals {
-  ecr_artifacts_repos = [
-    {
-      ecr_repo_name = "smalldomains.domain-manager"
-      project       = "smalldomains"
-      application   = "domain-manager"
-    }
-  ]
-}
-
 resource "aws_ecr_repository" "artifacts_ecr" {
   for_each             = { for a in local.ecr_artifacts_repos : a.ecr_repo_name => a }
   name                 = format("deployment-artifacts/%s", each.key)
@@ -26,7 +16,8 @@ resource "aws_ecr_lifecycle_policy" "ecr_artifacts_lifecycle_policy" {
 }
 
 resource "aws_ecr_repository_policy" "iam_access_to_ecr_artifacts" {
-  repository = aws_ecr_repository.artifacts_ecr.name
+  for_each   = aws_ecr_repository.artifacts_ecr
+  repository = each.value.name
 
   policy = jsonencode({
     "Version" : "2012-10-17",
