@@ -1,5 +1,15 @@
+locals {
+  ecr_artifacts_repos = [
+    {
+      project     = "smalldomains"
+      application = "domain-manager"
+    }
+  ]
+}
+
 resource "aws_ecr_repository" "artifacts_ecr" {
-  name                 = "deployment-artifacts"
+  for_each             = [for a in local.ecr_artifacts_repos : format("%s.%s", a.project, a.application)]
+  name                 = format("deployment-artifacts/%s", each.key)
   image_tag_mutability = "IMMUTABLE"
 
   image_scanning_configuration {
@@ -9,7 +19,8 @@ resource "aws_ecr_repository" "artifacts_ecr" {
 
 # auto delete old images in the repository
 resource "aws_ecr_lifecycle_policy" "ecr_artifacts_lifecycle_policy" {
-  repository = aws_ecr_repository.artifacts_ecr.name
+  for_each   = aws_ecr_repository.artifacts_ecr
+  repository = each.value.name
   policy     = var.artifacts_lifecycle_policy
 }
 
@@ -47,10 +58,10 @@ resource "aws_ecr_repository_policy" "iam_access_to_ecr_artifacts" {
         ]
       },
       {
-        "Sid" : "WriteAccessForIAMRoleOnly",
+        "Sid" : "WriteAccessForAll",
         "Effect" : "Allow",
         "Principal" : {
-          "AWS" : aws_iam_role.write_access_ecr_artifacts.arn
+          "AWS" : data.aws_caller_identity.current.account_id
         },
         "Action" : [
           "ecr:PutLifecyclePolicy",
