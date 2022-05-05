@@ -11,9 +11,8 @@ artifacts_lifecycle_policy = <<EOF
       "description" : "Delete old artifacts in DEV environment",
       "selection" : {
         "tagStatus" : "any",
-        "countType" : "sinceImagePushed",
-        "countUnit" : "days",
-        "countNumber" : 30
+        "countType" : "imageCountMoreThan",
+        "countNumber" : 2
       },
       "action" : {
         "type" : "expire"
