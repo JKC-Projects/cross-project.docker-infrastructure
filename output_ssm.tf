@@ -16,6 +16,6 @@ resource "aws_ssm_parameter" "ecs_ec2_cluster" {
 resource "aws_ssm_parameter" "ecs_instance_role_arn" {
   name        = "/iam/ecs/ecs-instance-role"
   type        = "String"
-  value       = aws_iam_instance_profile.ecs_instance_role.arn
+  value       = aws_iam_role.iam_role_for_ecs_instance_role.arn
   description = "The ARN of the ecsInstanceRole IAM role used by the ECS Container Agent"
 }
