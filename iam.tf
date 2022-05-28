@@ -19,7 +19,11 @@ resource "aws_iam_role" "iam_role_for_ecs_instance_role" {
         "Sid" : "",
         "Effect" : "Allow",
         "Principal" : {
-          "Service" : "ecs.amazonaws.com"
+          "Service" : [
+            "ecs.amazonaws.com",
+            "ecs-tasks.amazonaws.com",
+            "ec2.amazonaws.com"
+          ]
         },
         "Action" : "sts:AssumeRole"
       }
