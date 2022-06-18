@@ -45,6 +45,11 @@ resource "aws_launch_template" "for_ecs_ec2_asg" {
   description = format("The launch template for creating the EC2 instances used to form the ECS cluster %s",
   aws_ecs_cluster.ec2_cluster.name)
 
+  cpu_options {
+    core_count       = 1
+    threads_per_core = 2
+  }
+
   iam_instance_profile {
     arn = aws_iam_instance_profile.ecs_instance_role.arn
   }
