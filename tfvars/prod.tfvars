@@ -1,6 +1,6 @@
 ecs_cluster_size = {
-  min = 3
-  max = 4
+  min = 2
+  max = 3
 }
 
 # no lifecycle policy in higher environments, we want to preserve older artifacts that have ever been deployed
