@@ -1,6 +1,6 @@
 ecs_cluster_size = {
-  min = 2
-  max = 2
+  min = 1
+  max = 1
 }
 
 artifacts_lifecycle_policy = <<EOF
